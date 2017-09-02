@@ -17,7 +17,11 @@
 
 #ifndef _WIN32
 int _gettid() {
-    return syscall(SYS_gettid);
+#ifdef __FreeBSD__
+	return getpid();
+#else
+    	return syscall(SYS_gettid);
+#endif
 }
 #endif
 

@@ -19,10 +19,16 @@ pkg_install-include () {
     make -C "$build_dir/include" install
 }
 
+if [[ "$OS" = FreeBSD ]]; then
+	MAKE=gmake
+else
+	MAKE=make
+fi
+
 pkg_install-include-windows () {
     mkdir -p "$windows_deps/include/curl"
     cp -vL "$src_dir/include/curl"/*.h  "$windows_deps/include/curl/"
-    mkdir -p "$install_dir/include"
+    $MAKE -C "$build_dir/include" install
 }
 
 pkg_install-windows () {
@@ -55,10 +61,10 @@ pkg_install () {
     pkg_configure
 
     # install the libraries
-    make -C "$build_dir/lib" install-libLTLIBRARIES
+    $MAKE -C "$build_dir/lib" install-libLTLIBRARIES
 
     # install the curl-config script
-    make -C "$build_dir" install-binSCRIPTS
+    $MAKE -C "$build_dir" install-binSCRIPTS
 }
 
 pkg_depends () {
@@ -101,5 +107,10 @@ pkg_link-flags () {
             *)        out "$flag" ;;
         esac
     done
+
+    if [[ $OS = FreeBSD ]]; then
+	dl_libs = ''
+    fi
+
     echo "$ret" $dl_libs
 }

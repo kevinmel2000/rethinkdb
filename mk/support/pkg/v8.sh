@@ -52,6 +52,12 @@ else
     src_url_sha1=e753b6671eecf565d96c1e5a83563535ee2fe24b
 fi
 
+if [[ "$OS" == FreeBSD ]]; then
+    MAKE=gmake
+else
+    MAKE=make
+fi
+
 pkg_install-include () {
     pkg_copy_src_to_build
 
@@ -81,7 +87,7 @@ pkg_install-include () {
            in_dir "$build_dir/third_party/icu/source" ./configure --prefix="$(niceabspath "$install_dir")" --enable-static --disable-layout "$@"
        fi
 
-       in_dir "$build_dir/third_party/icu/source" make install-headers-recursive
+       in_dir "$build_dir/third_party/icu/source" $MAKE install-headers-recursive
 
     fi
 }

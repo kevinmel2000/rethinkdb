@@ -2,9 +2,15 @@ version=1.7.0
 src_url=https://github.com/google/googletest/archive/release-$version.tar.gz
 src_url_sha1=d7aa4b8536f3a007b480cf016be8a4333dbf4768
 
+if [[ "$OS" = FreeBSD ]]; then
+	MAKE=gmake
+else
+	MAKE=make
+fi
+
 pkg_install () {
     pkg_copy_src_to_build
-    make -C "$build_dir/make" gtest.a
+    $MAKE -C "$build_dir/make" gtest.a
     mkdir -p "$install_dir/lib"
     cp "$build_dir/make/gtest.a" "$install_dir/lib/libgtest.a"
 }
