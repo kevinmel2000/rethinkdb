@@ -61,7 +61,7 @@ First install some dependencies.  For example, on Ubuntu or Debian:
 
 First install for FreeBSD.
 
-    pkg install nano gmake git bash
+    pkg install nano gmake git bash python
 
 Generally, you will need
 
@@ -88,7 +88,9 @@ Then, to build (LINUX):
 to build (FreeBSD):
 
    change configure file ```#!/usr/bin/env bash``` to ```#!/usr/local/bin/env bash```
-   # bash configure --allow-fetch PYTHON=/usr/local/bin/python2.7
+   ```ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+   # bash configure --allow-fetch
+   # gmake -j4
 
 Need help?
 ----------
