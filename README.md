@@ -59,6 +59,10 @@ First install some dependencies.  For example, on Ubuntu or Debian:
         libprotobuf-dev libcurl4-openssl-dev libboost-all-dev \
         libncurses5-dev libjemalloc-dev wget m4 g++
 
+First install for FreeBSD.
+
+    pkg install nano gmake git bash
+
 Generally, you will need
 
 * GCC or Clang
@@ -70,7 +74,7 @@ Generally, you will need
 * libcurl
 * libcrypto (OpenSSL)
 
-Then, to build:
+Then, to build (LINUX):
 
     ./configure --allow-fetch
     # or run ./configure --allow-fetch CXX=clang++
@@ -81,6 +85,10 @@ Then, to build:
     sudo make install
     # or run ./build/debug_clang/rethinkdb
 
+to build (FreeBSD):
+
+   change configure file ```#!/usr/bin/env bash``` to ```#!/usr/local/bin/env bash```
+   # bash configure --allow-fetch PYTHON=/usr/local/bin/python2.7
 
 Need help?
 ----------
